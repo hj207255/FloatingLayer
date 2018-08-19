@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击浮层</title>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .float{
+            border: 1px solid #888;
+            padding: 10px 10px;
+            position: relative;
+            display:none;
+            z-index: 1;
+            margin-left: 10px;
+        }
+        .float::after{
+            content:"";
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-right: 10px solid #888;
+            border-bottom: 5px solid transparent;
+            position: absolute;
+            left: -10px;
+            top: 10px;
+        }
+        .float::before{
+            content:"";
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-right: 10px solid #fff;
+            border-bottom: 5px solid transparent;
+            position: absolute;
+            left: -9px;
+            top: 10px;
+            z-index: 1;
+        }
+        .window{
+            display: inline-block;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <button id="button">点我显示/隐藏浮层</button>
+        <span class="float">我是浮层</span>
+    </div>
+
+    <script>
+        $('#button').on('click',function(){
+            if($('.float').is(':hidden')){
+                $('span').show();
+            }else{
+                $('span').hide();
+            }
+            $(document).one('click',function(){
+                $('span').hide();
+            });
+        });
+        $('.window').on('click',function(e){
+            e.stopPropagation()
+        });
+    </script>
+</body>
+</html>
